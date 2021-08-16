@@ -11,6 +11,7 @@ import (
 func TestType2(t *testing.T) {
 	bs, _ := hex.DecodeString("4e544c4d53535000020000000e000e003800000005828aa27061ee132005d5a4000000000000000058005800460000000a00614a0000000f5a0044004a002d0030003500310002000e005a0044004a002d0030003500310001000e005a0044004a002d0030003500310004000e007a0064006a002d0030003500310003000e007a0064006a002d00300035003100070008002d108a2e658ad70100000000")
 	type2 := NewChallengeMsg(bs)
+
 	//type2.Display()
 	tinfo := ParseAVPair(type2.TargetInfo())
 	for k, v := range tinfo {
@@ -24,6 +25,10 @@ func TestType2(t *testing.T) {
 		}
 		fmt.Printf("    %s: %v\n", k, v)
 	}
+	offset_version := 48
+	version := bs[offset_version : offset_version+8]
+	v, _ := ReadVersionStruct(version)
+	fmt.Println(v)
 }
 
 func TestTime(t *testing.T) {

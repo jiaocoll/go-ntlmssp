@@ -2,8 +2,11 @@ package ntlmssp
 
 import (
 	"crypto/rand"
+	"encoding/binary"
 	"fmt"
 	"math/bits"
+	"strings"
+	"time"
 	"unsafe"
 )
 
@@ -224,4 +227,27 @@ func (cm *ChallengeMsg) SetServerChallenge(challenge []byte) {
 func (cm *ChallengeMsg) Reset() {
 	cm.Payload = nil
 	cm.offset = ChallengeMsgPayloadOffset
+}
+
+func (cm *ChallengeMsg) String(bs []byte) string {
+	var s []string
+	type2 := NewChallengeMsg(bs)
+	tinfo := ParseAVPair(type2.TargetInfo())
+	for k, v := range tinfo {
+		if k == "MsvAvTimestamp" {
+			byteKey := []byte(fmt.Sprintf("%s", v.(interface{})))
+			//fmt.Println(byteKey)
+			i := binary.LittleEndian.Uint64(byteKey)
+			i2 := i - 116444736000000000
+			tm := time.Unix(0, int64(i2*100))
+			v = tm
+		}
+		//fmt.Printf("    %s: %v\n", k, v)
+		s = append(s, fmt.Sprintf("    %s: %v\n", k, v))
+	}
+	offset_version := 48
+	version := bs[offset_version : offset_version+8]
+	v, _ := ReadVersionStruct(version)
+	s = append(s, fmt.Sprintf("    %s", v.String()))
+	return strings.Join(s, "")
 }

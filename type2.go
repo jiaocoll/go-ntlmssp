@@ -248,6 +248,6 @@ func (cm *ChallengeMsg) String(bs []byte) string {
 	offset_version := 48
 	version := bs[offset_version : offset_version+8]
 	v, _ := ReadVersionStruct(version)
-	s = append(s, fmt.Sprintf("    %s", v.String()))
+	s = append(s, fmt.Sprintf("    %s\n", v.String()))
 	return strings.Join(s, "")
 }

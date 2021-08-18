@@ -28,7 +28,9 @@ func ReadVersionStruct(structSource []byte) (*VersionStruct, error) {
 }
 
 func (v *VersionStruct) String() string {
-	return fmt.Sprintf("Version: %d.%d.%d NTLM: %d", v.ProductMajorVersion, v.ProductMinorVersion, v.ProductBuild, v.NTLMRevisionCurrent)
+	//return fmt.Sprintf("Version: %d.%d.%d \nNTLM: %d", v.ProductMajorVersion, v.ProductMinorVersion, v.ProductBuild, v.NTLMRevisionCurrent)
+	return fmt.Sprintf("Version: %d.%d.%d\n", v.ProductMajorVersion, v.ProductMinorVersion, v.ProductBuild)
+
 }
 
 func (v *VersionStruct) Bytes() []byte {

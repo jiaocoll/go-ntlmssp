@@ -243,7 +243,7 @@ func (cm *ChallengeMsg) String(bs []byte) string {
 			v = tm
 		}
 		//fmt.Printf("    %s: %v\n", k, v)
-		s = append(s, fmt.Sprintf("%s: %v\n", k, v))
+		s = append(s, fmt.Sprintf("%-20s: %v\n", k, v))
 	}
 	offset_version := 48
 	version := bs[offset_version : offset_version+8]

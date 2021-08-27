@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"math/bits"
+	"sort"
 	"strings"
 	"time"
 	"unsafe"
@@ -249,5 +250,6 @@ func (cm *ChallengeMsg) String(bs []byte) string {
 	version := bs[offset_version : offset_version+8]
 	v, _ := ReadVersionStruct(version)
 	s = append(s, fmt.Sprintf("%s", v.String()))
+	sort.Sort(sort.Reverse(sort.StringSlice(s)))
 	return strings.Join(s, "")
 }

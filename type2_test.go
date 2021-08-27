@@ -24,7 +24,7 @@ func TestType2(t *testing.T) {
 			tm := time.Unix(0, int64(i2*100))
 			v = tm
 		}
-		fmt.Printf("    %s: %v\n", k, v)
+		fmt.Printf("%s: %v\n", k, v)
 	}
 	offset_version := 48
 	version := bs[offset_version : offset_version+8]
